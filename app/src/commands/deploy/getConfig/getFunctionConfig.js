@@ -75,6 +75,10 @@ async function parseConfig(cli, aws, originalState, dirPath) {
             config.permissions = permissions
         }
 
+        if (config.url) {
+            config.url = true
+        }
+
         configObj[x] = config
     }
 

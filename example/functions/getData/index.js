@@ -7,6 +7,8 @@ module.exports.config = {
         }
     ],
 
+    url: true,
+
     //trigger: 'rispressoapi{@stage}_storeRemoved',
     env: {
         STRIPE: '1234'

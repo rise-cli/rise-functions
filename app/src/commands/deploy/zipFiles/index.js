@@ -1,4 +1,4 @@
-const HIDDEN_FOLDER = '.risefunctions'
+const HIDDEN_FOLDER = '.rise'
 
 function getLambdaFunctionPaths(cli, path, folderName) {
     let lambdas = []

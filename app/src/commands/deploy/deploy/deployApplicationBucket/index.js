@@ -38,7 +38,7 @@ exports.deployApplicationBucket = async function deployApplicationBucket(
     })
 
     cli.filesystem.writeFile({
-        path: '/.risefunctions/data.js',
+        path: '/.rise/data.js',
         content: `module.exports = { bucketName: "${MainBucket}"}`
     })
 

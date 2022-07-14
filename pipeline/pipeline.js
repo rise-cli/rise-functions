@@ -23,13 +23,13 @@ module.exports = {
                 //     inputArtifact: 'sourceZip',
                 //     outputArtifact: 'testZip'
                 // },
-                // {
-                //     type: 'BUILD',
-                //     name: 'DeployDocumentation',
-                //     script: '/docs.yml'
-                //     // inputArtifact: 'sourceZip',
-                //     // outputArtifact: 'docZip'
-                // },
+                {
+                    type: 'BUILD',
+                    name: 'DeployDocumentation',
+                    script: '/docs.yml'
+                    // inputArtifact: 'sourceZip',
+                    // outputArtifact: 'docZip'
+                },
                 {
                     type: 'BUILD',
                     name: 'PublishToNpm',

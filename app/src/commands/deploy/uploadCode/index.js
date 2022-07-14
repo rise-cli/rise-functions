@@ -1,4 +1,4 @@
-const HIDDEN_FOLDER = '.risefunctions'
+const HIDDEN_FOLDER = '.rise'
 
 module.exports.uploadLambdas = async function uploadLambdas(
     cli,

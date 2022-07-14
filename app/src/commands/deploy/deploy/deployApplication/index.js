@@ -184,50 +184,52 @@ module.exports.deployApplication = async function deployApplication({
             }
         }
 
-        const functionUrl = {
-            Resources: {
-                [`Lambda${x.name}${stage}Url`]: {
-                    Type: 'AWS::Lambda::Url',
-                    Properties: {
-                        AuthType: 'NONE',
-                        // Cors: Cors,
-                        //InvokeMode: String,
-                        // Qualifier: String,
-                        TargetFunctionArn: {
-                            'Fn::GetAtt': [`Lambda${x.name}${stage}`, 'Arn']
+        if (config[x.name].url) {
+            const functionUrl = {
+                Resources: {
+                    [`Lambda${x.name}${stage}Url`]: {
+                        Type: 'AWS::Lambda::Url',
+                        Properties: {
+                            AuthType: 'NONE',
+                            // Cors: Cors,
+                            //InvokeMode: String,
+                            // Qualifier: String,
+                            TargetFunctionArn: {
+                                'Fn::GetAtt': [`Lambda${x.name}${stage}`, 'Arn']
+                            }
+                        }
+                    },
+                    [`Lambda${x.name}${stage}InvokeUrlPermission`]: {
+                        Type: 'AWS::Lambda::Permission',
+                        Properties: {
+                            FunctionName: {
+                                'Fn::GetAtt': [`Lambda${x.name}${stage}`, 'Arn']
+                            },
+                            FunctionUrlAuthType: 'NONE',
+                            Action: 'lambda:InvokeFunctionUrl',
+                            Principal: '*'
                         }
                     }
                 },
-                [`Lambda${x.name}${stage}InvokeUrlPermission`]: {
-                    Type: 'AWS::Lambda::Permission',
-                    Properties: {
-                        FunctionName: {
-                            'Fn::GetAtt': [`Lambda${x.name}${stage}`, 'Arn']
-                        },
-                        FunctionUrlAuthType: 'NONE',
-                        Action: 'lambda:InvokeFunctionUrl',
-                        Principal: '*'
-                    }
-                }
-            },
-            Outputs: {
-                [`Lambda${x.name}${stage}Url`]: {
-                    Value: {
-                        'Fn::GetAtt': [
-                            `Lambda${x.name}${stage}Url`,
-                            'FunctionUrl'
-                        ]
+                Outputs: {
+                    [`Lambda${x.name}${stage}Url`]: {
+                        Value: {
+                            'Fn::GetAtt': [
+                                `Lambda${x.name}${stage}Url`,
+                                'FunctionUrl'
+                            ]
+                        }
                     }
                 }
             }
-        }
-        template.Resources = {
-            ...template.Resources,
-            ...functionUrl.Resources
-        }
-        template.Outputs = {
-            ...template.Outputs,
-            ...functionUrl.Outputs
+            template.Resources = {
+                ...template.Resources,
+                ...functionUrl.Resources
+            }
+            template.Outputs = {
+                ...template.Outputs,
+                ...functionUrl.Outputs
+            }
         }
     })
 

@@ -1,10 +1,10 @@
 module.exports.getAppConfig = function getAppConfig(cli, path) {
     const folderPath = path || process.cwd()
     try {
-        const config = require(folderPath + '/risefunctions.js')
+        const config = require(folderPath + '/rise.js')
         let bucketName = undefined
         try {
-            const data = require(folderPath + '/.risefunctions/data.js')
+            const data = require(folderPath + '/.rise/data.js')
             bucketName = data.bucketName
         } catch (e) {
             bucketName = undefined
@@ -18,6 +18,6 @@ module.exports.getAppConfig = function getAppConfig(cli, path) {
             dashboard: config.dashboard ? true : false
         }
     } catch (e) {
-        throw new Error('Must have a risefunctions.js file')
+        throw new Error('Must have a rise.js file')
     }
 }

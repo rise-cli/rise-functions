@@ -1,4 +1,4 @@
-const HIDDEN_FOLDER = '.risefunctions'
+const HIDDEN_FOLDER = '.rise'
 
 module.exports.makeFolders = async function makeFocusFolder(cli, path) {
     /**
