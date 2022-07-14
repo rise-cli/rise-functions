@@ -1,0 +1,17 @@
+{
+    "name": "rise-functions",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "aws-sdk": "^2.1171.0",
+        "rise-aws-foundation": "^0.0.5",
+        "rise-cli-foundation": "^0.0.10"
+    }
+}
