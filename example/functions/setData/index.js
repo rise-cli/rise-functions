@@ -6,6 +6,7 @@ module.exports.config = {
             Resource: '*'
         }
     ],
+    url: true,
 
     // trigger: 'rispressoapi{@stage}_storeCreated',
 

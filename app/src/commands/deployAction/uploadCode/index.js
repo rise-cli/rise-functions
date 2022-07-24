@@ -1,19 +1,13 @@
-const HIDDEN_FOLDER = '.rise'
-
 module.exports.uploadLambdas = async function uploadLambdas(
     cli,
     aws,
     bucketName,
-    path
+    config
 ) {
-    const pathDir = path || ''
-
     const getAllPaths = () => {
-        const lambaPaths = pathDir + '/functions'
+        const lambaPaths = config.functionsLocation
         const lambdas = cli.filesystem.getDirectories(lambaPaths)
-        return lambdas.map(
-            (name) => `${pathDir}/${HIDDEN_FOLDER}/lambdas/${name}.zip`
-        )
+        return lambdas.map((name) => `${config.zipTarget}/${name}.zip`)
     }
 
     let result = []
@@ -23,7 +17,7 @@ module.exports.uploadLambdas = async function uploadLambdas(
         const res = await aws.s3.uploadFile({
             file,
             bucket: bucketName,
-            key: path.split(HIDDEN_FOLDER + '/')[1]
+            key: path.split(config.hiddenFolder + '/')[1]
         })
         result.push(res)
     }

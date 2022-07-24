@@ -1,7 +1,7 @@
 const makeCli = require('rise-cli-foundation')
 const makeRiseAws = require('rise-aws-foundation')
 const { deploy } = require('./commands/deploy/index.js')
-//const remove = require('./commands/remove/index.js')
+const remove = require('./commands/remove/index.js')
 
 module.exports = (projectRoot) => {
     /**
@@ -21,19 +21,39 @@ module.exports = (projectRoot) => {
      */
     cli.terminal.makeCommand({
         command: 'deploy',
-        description: 'Deploy static files to AWS',
+        description: 'Deploy functions',
+        flags: [
+            {
+                flag: '--stage',
+                default: 'dev'
+            },
+            {
+                flag: '--region',
+                default: 'us-east-1'
+            }
+        ],
         action: (flags) => {
             deploy(cli, riseAws, flags)
         }
     })
 
-    // cli.terminal.makeCommand({
-    //     command: 'remove',
-    //     description: 'Remove site',
-    //     action: (flags) => {
-    //         remove(cli, riseAws, flags)
-    //     }
-    // })
+    cli.terminal.makeCommand({
+        command: 'remove',
+        description: 'Remove functions',
+        flags: [
+            {
+                flag: '--stage',
+                default: 'dev'
+            },
+            {
+                flag: '--region',
+                default: 'us-east-1'
+            }
+        ],
+        action: (flags) => {
+            remove(cli, riseAws, flags)
+        }
+    })
 
     /**
      * Start

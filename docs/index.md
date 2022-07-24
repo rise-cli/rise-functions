@@ -37,9 +37,7 @@ The `rise.js` file is for configuring your project. In order to treat this as a 
 ```js
 module.exports = {
     type: 'functions',
-    name: 'nameOfMyProject',
-    stage: 'qa', // optional
-    region: 'us-east-1' // optiona;
+    name: 'nameOfMyProject'
 }
 ```
 
@@ -49,11 +47,7 @@ The only required parameter is the name. This will be used to name:
 -   lambda functions
 -   iam roles
 
-If stage and region are set, those values will inform the cli which region and stage to deploy to. It is much more common to set these values as cli flags in a CICD pipeline than to hard code them here.
-
 ## What CLI flags are available?
-
-### Note: This is not yet implemented
 
 You can set the region and stage of your deployment like so:
 

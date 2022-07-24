@@ -66,7 +66,7 @@ module.exports.handler = async (event) => {
 }
 ```
 
-### Lmabda Permissions
+### Lambda Permissions
 
 If `permissions` is set, you can add an array of IAM permissions to your Lambd function:
 

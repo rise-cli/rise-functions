@@ -3,15 +3,17 @@ module.exports.updateLambdaCode = async function updateLambdaCode({
     aws,
     appName,
     stage,
-    bucket
+    region,
+    bucket,
+    zipConfig
 }) {
     const getAllPaths = () => {
-        const lambaPaths = '/functions'
+        const lambaPaths = zipConfig.functionsLocation
         const lambdas = cli.filesystem.getDirectories(lambaPaths)
-
+        const path = zipConfig.zipTarget.split(zipConfig.hiddenFolder + '/')[1]
         return [
             ...lambdas.map((x) => ({
-                path: `lambdas/${x}.zip`,
+                path: `${path}/${x}.zip`,
                 name: x
             }))
         ]
@@ -24,7 +26,8 @@ module.exports.updateLambdaCode = async function updateLambdaCode({
         await aws.lambda.updateLambdaCode({
             name: lambdaName,
             filePath: l.path,
-            bucket: bucket
+            bucket: bucket,
+            region
         })
     }
 }

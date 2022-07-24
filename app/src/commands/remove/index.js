@@ -1,44 +1,30 @@
-//const { getConfig } = require('../deploy/getConfig')
-//const { deployApplicationBucket } = require('../deploy/deployApplicationBucket')
-//const { emptyBucket } = require('../deploy/utils/bucket')
+const { getConfig } = require('../deploy/getConfig')
+const { removeAction } = require('../removeAction/')
 
-async function main(cli, aws) {
-    // /**
-    //  * Get project  info locally
-    //  */
-    // const stage = 'dev'
-    // const region = 'us-east-1'
-    // const config = await getConfig(cli, aws)
-    // /**
-    //  * Get Projject info remotely if local isnt available
-    //  */
-    // const deployName = config.title.replace(/\s/g, '') + 'functions'
-    // if (!config.bucketName) {
-    //     const bucketName = await deployApplicationBucket(
-    //         cli,
-    //         aws,
-    //         deployName,
-    //         stage
-    //     )
-    //     config.bucketName = bucketName
-    // }
-    // const stackName = deployName + stage + '-bucket'
-    // /**
-    //  * Empty bucket
-    //  */
-    // await emptyBucket({
-    //     bucketName: config.bucketName
-    // })
-    // /**
-    //  * Remove stack
-    //  */
-    // await aws.cloudformation.removeStack({
-    //     name: stackName,
-    //     template: ''
-    // })
-    // await cli.filesystem.removeDir('/.risefunctions')
-    // cli.terminal.clear()
-    // cli.terminal.printSuccessMessage('Project Successfully Removed')
+async function main(cli, aws, flags) {
+    let config
+    try {
+        config = await getConfig(cli, aws)
+    } catch (e) {
+        cli.terminal.clear()
+        cli.terminal.printErrorMessage('Rise Functions Validation Error')
+        cli.terminal.printInfoMessage(e.message)
+    }
+
+    const realConfig = {
+        name: config.name,
+        bucketName: config.bucketName,
+        stage: flags.stage,
+        region: flags.region,
+        lambda: config.lambda,
+        deployName: config.name.replace(/\s/g, '') + 'functions',
+        zipConfig: {
+            functionsLocation: '/functions',
+            zipTarget: '/.rise/lambdas',
+            hiddenFolder: '.rise'
+        }
+    }
+    await removeAction(cli, aws, realConfig)
 }
 
 module.exports = main

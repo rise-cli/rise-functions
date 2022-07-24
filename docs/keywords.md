@@ -15,7 +15,7 @@ All keywords use the following format: `{@keyword}`.
 It is common to deploy to many stages, and there may be times we want to reference a value or resource based on the stage we are in. We can do this by using the stage keyword:
 
 ```js
-const stage = `{@stage}`
+const stage = '{@stage}'
 ```
 
 An example of when we might use stage is to pass this as an env variable into our Lambda function:
@@ -35,7 +35,7 @@ module.exports.config = {
 You can reference the region as follows:
 
 ```js
-const region = `{@region}`
+const region = '{@region}'
 ```
 
 An example of when we might use region is to build up an arn value:
@@ -54,7 +54,7 @@ module.exports.config = {
 You can reference your account id as follows:
 
 ```js
-const accountId = `{@accountId}`
+const accountId = '{@accountId}'
 ```
 
 An example of when we might use accountId is to build up an arn value:
@@ -76,7 +76,7 @@ module.exports.config = {
 
 Every deployed CloudFormation template has the option of defining outputs. This is great for dynamically referring to resource names or resource arns. Example, if we have deployed the following template:
 
-```yml
+```bash
 Resources:
     Notes:
         Type: 'AWS::DynamoDB::Table'
@@ -93,7 +93,7 @@ Outputs:
 The ARN of the table is made available for us to reference by refering to the NotesArn output. You can reference this value with the following keyword:
 
 ```js
-const arn = `{@output.stackName.NotesArn}`
+const arn = '{@output.stackName.NotesArn}'
 ```
 
 A common scenario for using outputs would be to define iam permissions for a lambda function, Example:
@@ -123,7 +123,7 @@ in code or in Lambda config.
 You can reference a parameter as follows:
 
 ```js
-const endpoint = `{@ssm.external_service_endpoint}`
+const endpoint = '{@ssm.external_service_endpoint}'
 ```
 
 An example of when we might use ssm is to pass this as an env variable into our Lambda function:

@@ -8,16 +8,18 @@ module.exports.deployApplication = async function deployApplication({
     bucketArn,
     stage,
     config,
-    stepFunctionConfig,
-    dashboard
+    zipConfig,
+    printStatus
+    // stepFunctionConfig,
+    // dashboard
 }) {
     const getLambdaPaths = () => {
-        const lambaPaths = '/functions'
+        const lambaPaths = zipConfig.functionsLocation
         const lambdas = cli.filesystem.getDirectories(lambaPaths)
-
+        const path = zipConfig.zipTarget.split(zipConfig.hiddenFolder + '/')[1]
         return [
             ...lambdas.map((x) => ({
-                path: `lambdas/${x}.zip`,
+                path: `${path}/${x}.zip`,
                 name: x
             }))
         ]
@@ -235,13 +237,15 @@ module.exports.deployApplication = async function deployApplication({
 
     await aws.cloudformation.deployStack({
         name: appName + stage,
+        region,
         template: JSON.stringify(template)
     })
 
     cli.terminal.clear()
-    cli.terminal.printInfoMessage('Deploying functions to AWS Lambda...')
+    printStatus('Deploying CloudFormation Template')
 
     await aws.cloudformation.getDeployStatus({
+        region,
         config: {
             stackName: appName + stage,
             minRetryInterval: 5000,
@@ -250,9 +254,38 @@ module.exports.deployApplication = async function deployApplication({
             maxRetries: 200,
             onCheck: (resources) => {
                 cli.terminal.clear()
+                let idLength = 0
                 resources.forEach((item) => {
-                    cli.terminal.printInfoMessage(`${item.id}: ${item.status}`)
+                    if (item.id.length > idLength) {
+                        idLength = item.id.length
+                    }
                 })
+                resources.forEach((item) => {
+                    let str = ''
+                    let idCharCount = 0
+                    while (idCharCount < idLength) {
+                        if (item.id[idCharCount]) {
+                            str = str + item.id[idCharCount]
+                        } else {
+                            str = str + ' '
+                        }
+                        idCharCount++
+                    }
+
+                    str = str + ` \x1b[2m${item.status}\x1b[0m`
+
+                    if (item.status.includes('COMPLETE')) {
+                        console.log('\x1b[32m✔ \x1b[37m' + str)
+                        // cli.terminal.printSuccessMessage('' + str)
+                    } else if (item.status.includes('FAILED')) {
+                        cli.terminal.printErrorMessage(str)
+                    } else {
+                        console.log('\x1b[34m◆ \x1b[37m' + str)
+                        // cli.terminal.printInfoMessage(' ' + str)
+                    }
+                })
+                console.log('')
+                printStatus('Deploying CloudFormation Template')
             }
         }
     })
