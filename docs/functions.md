@@ -4,11 +4,13 @@ To define a Lambda function:
 
 -   create a functions folder
 -   create another folder with the name of your function
--   create an index.js file.
+-   create an index.js file for your code.
+-   create a config.js file for your lambda config
 
 ```bash
 /functions
     /myBlueFunction
+        config.js
         index.js
 ```
 
@@ -26,15 +28,11 @@ The only requirement is that you export a handler function. Any additional files
 
 ## Configuring your Lambda Function
 
-Along with exporting a `handler` function, you can also export a config function, which rise will read as config to setup your lambda:
+Along with the `index.js` file, you also need to define a `config.js` file which exprots a config object:
 
 ```js
 module.exports.config = {
     // ... my config
-}
-
-module.exports.handler = async (event) => {
-    return 123
 }
 ```
 
@@ -46,10 +44,6 @@ If `url` is set to true, your lambda function will deploy with a public url
 module.exports.config = {
     url: true
 }
-
-module.exports.handler = async (event) => {
-    return 123
-}
 ```
 
 ### Lambda EventBridge Rule
@@ -59,10 +53,6 @@ If `trigger` is set to a string, rise-functions will setup an event bridge rule 
 ```js
 module.exports.config = {
     trigger: 'user-created'
-}
-
-module.exports.handler = async (event) => {
-    return 123
 }
 ```
 
@@ -79,9 +69,5 @@ module.exports.config = {
             Resource: 'arn:aws:dynamodb:us-east-1:123412341234:table/myTable'
         }
     ]
-}
-
-module.exports.handler = async (event) => {
-    return 123
 }
 ```

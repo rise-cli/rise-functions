@@ -21,7 +21,7 @@ const stage = '{@stage}'
 An example of when we might use stage is to pass this as an env variable into our Lambda function:
 
 ```js
-// index.js
+// config.js
 module.exports.config = {
     env: {
         STAGE: '{@stage}',
@@ -41,7 +41,7 @@ const region = '{@region}'
 An example of when we might use region is to build up an arn value:
 
 ```js
-// index.js
+// config.js
 module.exports.config = {
     env: {
         TOPIC: 'arn:aws:sns:{@region}:12341234:ChatOpsTopic'
@@ -60,7 +60,7 @@ const accountId = '{@accountId}'
 An example of when we might use accountId is to build up an arn value:
 
 ```js
-// index.js
+// config.js
 module.exports.config = {
     permissions: [
         {
@@ -99,7 +99,7 @@ const arn = '{@output.stackName.NotesArn}'
 A common scenario for using outputs would be to define iam permissions for a lambda function, Example:
 
 ```js
-// index.js
+// config.js
 module.exports.config = {
     permissions: [
         {
@@ -129,7 +129,7 @@ const endpoint = '{@ssm.external_service_endpoint}'
 An example of when we might use ssm is to pass this as an env variable into our Lambda function:
 
 ```js
-// index.js
+// config.js
 module.exports.config = {
     env: {
         EXTERNAL_SERVICE_ENDPOINT: '{@ssm.my_external_service_endpoint}'
