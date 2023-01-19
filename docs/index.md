@@ -1,6 +1,6 @@
 # Introduction to Rise Functions
 
-Rise Focus is a CLI which takes a `rise.mjs` file, and deploys AWS Lambda functions into your AWS account. All lambda functions are located in a /functions folder. The goal of rise functions is to make building AWS Lambda functions as simple and straight forward as possible.
+Rise Functions is a CLI which takes a `rise.mjs` file, and deploys AWS Lambda functions into your AWS account. All lambda functions are located in a /functions folder. The goal of rise functions is to make building AWS Lambda functions as simple and straight forward as possible.
 
 ## Install
 
@@ -19,6 +19,16 @@ rise-functions deploy
 ## Project Structure
 
 A rise focus project as the following structure:
+
+```bash
+/functions
+    myFunctionA.mjs
+    myFunctionB.mjs
+    myFunctionC.mjs
+rise.mjs
+```
+
+If your function requires multiple files, or node_modules, functions can also be defined as folders. When they are in a folder, the handler and the config are in seperate files.
 
 ```bash
 /functions

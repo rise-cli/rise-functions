@@ -1,6 +1,6 @@
 # Keywords
 
-Keywords are a way to reference dynamic values in your rise.js file or functionconfig, you can reference:
+Keywords are a way to reference dynamic values in your rise.mjs file or functionconfig, you can reference:
 
 -   Stage
 -   Region
@@ -12,17 +12,17 @@ All keywords use the following format: `{@keyword}`.
 
 ## Stage
 
-It is common to deploy to many stages, and there may be times we want to reference a value or resource based on the stage we are in. We can do this by using the stage keyword:
+It is common to deploy to many stages, and there may be times you want to reference a value or resource based on the stage you are in. You can do this by using the stage keyword:
 
 ```js
 const stage = '{@stage}'
 ```
 
-An example of when we might use stage is to pass this as an env variable into our Lambda function:
+An example of when you might use stage is to pass this as an env variable into your Lambda function:
 
 ```js
-// config.js
-module.exports.config = {
+// config.mjs
+export const config = {
     env: {
         STAGE: '{@stage}',
         SOME_ENDPOINT: 'https://myendpoint-{@stage}.com'
@@ -38,11 +38,11 @@ You can reference the region as follows:
 const region = '{@region}'
 ```
 
-An example of when we might use region is to build up an arn value:
+An example of when you might use region is to build up an arn value:
 
 ```js
-// config.js
-module.exports.config = {
+// config.mjs
+export const config = {
     env: {
         TOPIC: 'arn:aws:sns:{@region}:12341234:ChatOpsTopic'
     }
@@ -57,11 +57,11 @@ You can reference your account id as follows:
 const accountId = '{@accountId}'
 ```
 
-An example of when we might use accountId is to build up an arn value:
+An example of when you might use accountId is to build up an arn value:
 
 ```js
-// config.js
-module.exports.config = {
+// config.mjs
+export const config = {
     permissions: [
         {
             Effect: 'Allow',
@@ -74,7 +74,7 @@ module.exports.config = {
 
 ## CloudFormation Outputs
 
-Every deployed CloudFormation template has the option of defining outputs. This is great for dynamically referring to resource names or resource arns. Example, if we have deployed the following template:
+Every deployed CloudFormation template has the option of defining outputs. This is great for dynamically referring to resource names or resource arns. Example, if you have deployed the following template:
 
 ```bash
 Resources:
@@ -99,8 +99,8 @@ const arn = '{@output.stackName.NotesArn}'
 A common scenario for using outputs would be to define iam permissions for a lambda function, Example:
 
 ```js
-// config.js
-module.exports.config = {
+// config.mjs
+export const config = {
     permissions: [
         {
             Effect: 'Allow',
@@ -117,8 +117,7 @@ SSM Parameter Store is an AWS service for storing parameters in your account.
 This can be likened to other services like Github or Vercel which allow you to set
 env variables to reference in your deployment pipeline. It is important to note that
 you should not use parameter store if the value is a secret. Consider using AWS Secret Manager
-for senstive secrets and keys, and parameter store for values you are fine being visible as plain text
-in code or in Lambda config.
+for senstive secrets and keys, and parameter store for values you are fine being visible as plain text in code or in Lambda config.
 
 You can reference a parameter as follows:
 
@@ -126,11 +125,11 @@ You can reference a parameter as follows:
 const endpoint = '{@ssm.external_service_endpoint}'
 ```
 
-An example of when we might use ssm is to pass this as an env variable into our Lambda function:
+An example of when you might use ssm is to pass this as an env variable into our Lambda function:
 
 ```js
-// config.js
-module.exports.config = {
+// config.mjs
+export const config = {
     env: {
         EXTERNAL_SERVICE_ENDPOINT: '{@ssm.my_external_service_endpoint}'
     }
