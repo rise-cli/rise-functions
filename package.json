@@ -1,11 +1,10 @@
 {
     "name": "rise-functions",
-    "version": "0.0.15",
+    "version": "0.0.29",
     "description": "",
-    "main": "index.js",
-    "type": "module",
+    "main": "index.mjs",
     "bin": {
-        "rise-functions": "./index.js"
+        "rise-functions": "./index.mjs"
     },
     "scripts": {
         "test": "node --test && echo \"✅ Tests Pass\"",
@@ -15,9 +14,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "rise-aws-foundation": "^0.0.10",
+        "json5": "^2.2.3",
+        "rise-aws-foundation": "^0.0.11",
         "rise-cli-foundation": "^0.0.14",
-        "rise-deploybackend": "^0.0.8",
+        "rise-deploycode": "^0.0.1",
+        "rise-deployinfra": "^0.0.6",
         "rise-filesystem-foundation": "^0.0.1"
     }
 }

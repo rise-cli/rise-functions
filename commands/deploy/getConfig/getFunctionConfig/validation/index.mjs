@@ -1,9 +1,9 @@
-import { validateAlarmConfig } from './alarm.js'
-import { validateEnv } from './env.js'
-import { validateEventRuleConfig } from './eventRule.js'
-import { validatePermissions } from './permissions.js'
-import { validateTimeout } from './timeout.js'
-import { validateUrlConfig } from './url.js'
+import { validateAlarmConfig } from './alarm.mjs'
+import { validateEnv } from './env.mjs'
+import { validateEventRuleConfig } from './eventRule.mjs'
+import { validatePermissions } from './permissions.mjs'
+import { validateTimeout } from './timeout.mjs'
+import { validateUrlConfig } from './url.mjs'
 
 export function validateFunctionConfig(config, functionName) {
     const defualtConfig = {

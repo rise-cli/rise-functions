@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 import * as cli from 'rise-cli-foundation'
-import { deploy } from './commands/deploy/index.js'
-import { remove } from './commands/remove/index.js'
-import { generate } from './commands/generate/index.js'
+import { deploy } from './commands/deploy/index.mjs'
+import { remove } from './commands/remove/index.mjs'
+import { generate } from './commands/generate/index.mjs'
 
 cli.addCommand({
     command: 'deploy',

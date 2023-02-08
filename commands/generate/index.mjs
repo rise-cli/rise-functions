@@ -1,11 +1,13 @@
-import * as cli from 'cli-foundation'
+import * as cli from 'rise-cli-foundation'
+import * as filesystem from 'rise-filesystem-foundation'
 import process from 'node:process'
-// const types: Record<string, true> = {
-//     customMetrics: true,
-//     db: true,
-//     events: true,
-//     simple: true
-// }
+
+const types = {
+    customMetrics: true,
+    db: true,
+    events: true,
+    simple: true
+}
 
 export async function generate(flags) {
     if (!types[flags.type]) {
@@ -37,10 +39,7 @@ export async function generate(flags) {
             projectRoot: process.cwd(),
             path: '/functions/dbExample/config.mjs',
             content: `export const config = {
-    url: {
-        method: 'GET',
-        path: 'list'
-    }
+    url: 'GET /list',
     env: {
         TABLE: '{@output.stackName.TableName}'
     },
@@ -161,7 +160,7 @@ export const remove = async ({ pk, sk }) => {
     if (flags.type === 'events') {
         await createDir('/functions/eventExample')
 
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
             path: '/functions/eventExample/config.mjs',
             content: `export const config = {
@@ -184,7 +183,7 @@ export const remove = async ({ pk, sk }) => {
 }`
         })
 
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
             path: '/functions/eventExample/index.mjs',
             content: `import AWS from '/var/runtime/node_modules/aws-sdk/lib/aws.js'
@@ -224,10 +223,10 @@ export const handler = async (event) => {
      * CUSTOM METRIC EXAMPLE
      *
      */
-    if (flags.type === 'customMetric') {
+    if (flags.type === 'customMetrics') {
         await createDir('/functions/customMetricExample')
 
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
             path: '/functions/customMetricExample/config.mjs',
             content: `export const config = {
@@ -237,11 +236,16 @@ export const handler = async (event) => {
             Action: 'cloudwatch:PutMetricData',
             Resource: '*'
         }
-    ]
+    ],
+    eventRule: {
+        bus:  '{@outputs.stackName.EventBusName}',
+        source: 'EVENT_SOURCE',
+        name: 'EVENT_NAME'
+    }
 }`
         })
 
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
             path: '/functions/customMetricExample/index.mjs',
             content: `import AWS from '/var/runtime/node_modules/aws-sdk/lib/aws.js'
@@ -288,23 +292,16 @@ export const handler = async (event) => {
      *
      */
     if (flags.type === 'simple') {
-        await createDir('/functions/example')
+        await createDir('/functions')
 
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
-            path: '/functions/example/config.mjs',
+            path: '/functions/simple.mjs',
             content: `export const config = {
-    url: {
-        method: 'GET',
-        path: 'example'
-    }
-}`
-        })
+    url: 'GET /example'
+}
 
-        cli.filesystem.writeFile({
-            projectRoot: process.cwd(),
-            path: '/functions/example/index.mjs',
-            content: `export cosnt handler = async () => {
+export const handler = async () => {
     return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json' },
@@ -319,7 +316,7 @@ export const handler = async (event) => {
     try {
         const x = require(process.cwd() + '/rise.mjs')
     } catch (e) {
-        cli.filesystem.writeFile({
+        filesystem.writeFile({
             projectRoot: process.cwd(),
             path: '/rise.mjs',
             content: `export default {
@@ -328,4 +325,7 @@ export const handler = async (event) => {
 }`
         })
     }
+
+    cli.clear()
+    console.log('✅ Generated Successfully')
 }

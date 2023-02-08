@@ -1,5 +1,5 @@
 import * as filesystem from 'rise-filesystem-foundation'
-import { getAccountId } from './getAccountId.js'
+import { getAccountId } from './getAccountId.mjs'
 import process from 'node:process'
 
 async function getLocalAppConfig() {

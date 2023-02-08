@@ -17,10 +17,13 @@ export function validatePermissions(input) {
             )
         }
 
-        if (typeof permission.Action !== 'string') {
+        if (
+            typeof permission.Action !== 'string' &&
+            !Array.isArray(permission.Action)
+        ) {
             throw new Error(
                 input.functionName +
-                    ' config.permissions objects Action must be a string'
+                    ' config.permissions objects Action must be a string or an array '
             )
         }
 
@@ -45,10 +48,13 @@ export function validatePermissions(input) {
             )
         }
 
-        if (typeof permission.Resource !== 'string') {
+        if (
+            typeof permission.Resource !== 'string' &&
+            !Array.isArray(permission.Resource)
+        ) {
             throw new Error(
                 input.functionName +
-                    ' config.permissions objects Resource must be a string'
+                    ' config.permissions objects Resource must be a string or an array'
             )
         }
     })

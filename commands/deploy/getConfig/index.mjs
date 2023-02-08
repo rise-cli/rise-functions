@@ -1,6 +1,6 @@
-import { makeFolders } from './makeFolders.js'
-import { getAppConfig } from './getAppConfig.js'
-import { getFunctionConfig } from './getFunctionConfig/index.js'
+import { makeFolders } from './makeFolders.mjs'
+import { getAppConfig } from './getAppConfig.mjs'
+import { getFunctionConfig } from './getFunctionConfig/index.mjs'
 
 export const getConfig = async (flags) => {
     await makeFolders()

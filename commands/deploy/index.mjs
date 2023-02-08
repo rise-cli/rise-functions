@@ -1,5 +1,5 @@
-import { getConfig } from './getConfig/index.js'
-import { deployBackend } from 'rise-deploybackend'
+import { getConfig } from './getConfig/index.mjs'
+import { deployBackend } from './deployApp/index.mjs'
 import * as cli from 'rise-cli-foundation'
 
 export async function deploy(flags) {
@@ -10,6 +10,7 @@ export async function deploy(flags) {
             config.deployInfra = true
         }
 
+        //throw new Error(JSON.stringify(config, null, 2))
         await deployBackend(config)
     } catch (e) {
         if (e instanceof Error) {

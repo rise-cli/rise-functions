@@ -1,7 +1,7 @@
-import { addKeywordsToAlarmConfig } from './alarm.js'
-import { addKeywordsToEnv } from './env.js'
-import { addKeywordsToEventRule } from './eventRule.js'
-import { addKeywordsToPermissions } from './permissions.js'
+import { addKeywordsToAlarmConfig } from './alarm.mjs'
+import { addKeywordsToEnv } from './env.mjs'
+import { addKeywordsToEventRule } from './eventRule.mjs'
+import { addKeywordsToPermissions } from './permissions.mjs'
 
 export async function applyKeywords(config, keywords) {
     await addKeywordsToAlarmConfig(config, keywords)

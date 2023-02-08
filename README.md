@@ -18,7 +18,7 @@ rise-functions deploy
 
 ## Project Structure
 
-A rise focus project as the following structure:
+A project as the following structure:
 
 ```bash
 /functions
@@ -42,7 +42,7 @@ If your function requires multiple files, or node_modules, functions can also be
 rise.mjs
 ```
 
-## What is the rise.js file for?
+## What is the rise.mjs file for?
 
 The `rise.mjs` file is for configuring your project. In order to treat this as a rise functions project, type must be set to `functions` in this config. Here is an example:
 

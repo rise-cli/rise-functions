@@ -1,9 +1,10 @@
 import * as filesystem from 'rise-filesystem-foundation'
-import { validateFunctionConfig } from './validation/index.js'
-import { applyKeywords } from './keywords/index.js'
+import { validateFunctionConfig } from './validation/index.mjs'
+import { applyKeywords } from './keywords/index.mjs'
 import fs from 'fs'
 import crypto from 'crypto'
-import { code } from './code.js'
+import { code } from './code.mjs'
+import JSON5 from 'json5'
 
 function getFunctionDirectories() {
     try {
@@ -20,14 +21,32 @@ function getFunctionDirectories() {
     }
 }
 
+function extractConfigFromString(textContent) {
+    const x1 = textContent.split('export const config = ')[1]
+    let spot = 0
+    let count = 0
+    let charArray = x1.split('')
+    for (let index = 0; index < charArray.length; index++) {
+        const char = charArray[index]
+        if (char === '{') count++
+        if (char === '}') count--
+        spot++
+        if (count === 0) break
+    }
+    const configString = x1.split('').splice(0, spot).join('')
+    return configString
+}
+
 async function getFunctionConfigFile(configPath) {
     try {
-        let file = await filesystem.getJsFile({
+        let textContent = await filesystem.getTextContent({
             projectRoot: process.cwd(),
             path: configPath
         })
 
-        return file.config
+        const configStr = extractConfigFromString(textContent)
+        const config = JSON5.parse(configStr)
+        return config
     } catch (e) {
         throw new Error('Every function folder must have a config.mjs file ')
     }
@@ -77,7 +96,6 @@ export async function getFunctionConfig(region, stage) {
     }
 
     let files = fs.readdirSync(process.cwd() + '/functions')
-    console.log('THE FILES:', files)
 
     let singleFileLambas = files
         .filter((x) => x.endsWith('.mjs'))
@@ -126,7 +144,7 @@ export async function getFunctionConfig(region, stage) {
             projectRoot: process.cwd(),
             path: '/.rise/infra.mjs'
         })
-        console.log('THE PREV HASH: ', file.hash)
+
         if (file.hash === hash) {
             deployInfra = false
         }

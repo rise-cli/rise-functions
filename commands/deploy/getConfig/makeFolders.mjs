@@ -23,24 +23,40 @@ export async function makeFolders() {
         path: '/' + HIDDEN_FOLDER,
         projectRoot: process.cwd()
     })
-    if (!focusFolder.includes('lambdas')) {
-        await filesystem.makeDir({
+
+    if (focusFolder.includes('lambdas')) {
+        filesystem.removeDir({
             path: '/' + HIDDEN_FOLDER + '/lambdas',
             projectRoot: process.cwd()
         })
     }
 
+    await filesystem.makeDir({
+        path: '/' + HIDDEN_FOLDER + '/lambdas',
+        projectRoot: process.cwd()
+    })
+
     /**
      * Create src folder
      */
-    if (!focusFolder.includes('src')) {
-        await filesystem.makeDir({
-            path: '/' + HIDDEN_FOLDER + '/src',
-            projectRoot: process.cwd()
-        })
-        await filesystem.makeDir({
+    if (focusFolder.includes('src')) {
+        filesystem.removeDir({
             path: '/' + HIDDEN_FOLDER + '/src/lambdas',
             projectRoot: process.cwd()
         })
+
+        filesystem.removeDir({
+            path: '/' + HIDDEN_FOLDER + '/src',
+            projectRoot: process.cwd()
+        })
     }
+
+    await filesystem.makeDir({
+        path: '/' + HIDDEN_FOLDER + '/src',
+        projectRoot: process.cwd()
+    })
+    await filesystem.makeDir({
+        path: '/' + HIDDEN_FOLDER + '/src/lambdas',
+        projectRoot: process.cwd()
+    })
 }

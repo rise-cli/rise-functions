@@ -1,9 +1,9 @@
-import { emptyBucket } from './bucket.js'
 import * as cli from 'rise-cli-foundation'
 import * as filesystem from 'rise-filesystem-foundation'
-import * as aws from 'rise-aws-foundation'
+import process from 'node:process'
+import * as deploycode from 'rise-deploycode'
 
-export async function removeAction(config) {
+export async function removeBackend(config) {
     /**
      * Get project  info locally
      */
@@ -33,7 +33,7 @@ export async function removeAction(config) {
     /**
      * Empty bucket
      */
-    await emptyBucket({
+    await deploycode.emptyCodeBucket({
         bucketName: projectData.bucketName
     })
 

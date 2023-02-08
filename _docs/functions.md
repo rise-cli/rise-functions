@@ -26,53 +26,45 @@ export const handler = async (event, rise, context) => {
 
 # Folder Functions
 
-To define a Lambda function:
+To define a folder function:
 
 -   create a functions folder
 -   create another folder with the name of your function
 -   create an index.mjs file for your code.
--   create a config.mjs file for your lambda config
 
 ```bash
 /functions
     /myBlueFunction
-        config.mjs
+        /node_modules
+        utils.mjs
         index.mjs
 ```
 
 ## index.mjs
 
-Inside index.mjs, you can write your Lambda function like so:
-
-```js
-export const handler = async (event, rise, context) => {
-    return 123
-}
-```
-
-The only requirement is that you export a handler function. Any additional files or node_modules located inside this folder will also be included in the deployment.
-
-## config.mjs
-
-Inside your config file, you will export a config object:
+The index.mjs file inside the folder, like the single file function, must export 2 things: a handler, and a config object:
 
 ```js
 export const config = {
     // ...my config. More details below
 }
+
+export const handler = async (event, rise, context) => {
+    return 123
+}
 ```
 
 # Configuring your Lambda Function
 
-Whether you are working with single file functions or folder functions, the config works the exact same way. The config object is how you configure your lambda function.
+The config object is how you configure your Lambda function.
 
-### Lambda Url
+### Url
 
-If `url` is set to true, your lambda function will deploy with a public url
+If `url` is set to true, your lambda function will deploy with a public url. The format of the string is `{METHOD} {PATH`
 
 ```js
 export const config = {
-    url: true
+    url: 'GET /notes'
 }
 ```
 

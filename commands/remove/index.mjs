@@ -1,6 +1,6 @@
-import { getConfig } from '../deploy/getConfig/index.js'
+import { getConfig } from '../deploy/getConfig/index.mjs'
 import * as cli from 'rise-cli-foundation'
-import { removeBackend } from 'rise-deploybackend'
+import { removeBackend } from './removeAction/index.mjs'
 
 export async function remove(flags) {
     try {
