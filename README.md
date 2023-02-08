@@ -1,4 +1,4 @@
-# Introduction to Rise Functions
+# Rise Functions
 
 Rise Functions is a CLI which takes a `rise.mjs` file, and deploys AWS Lambda functions into your AWS account. All lambda functions are located in a /functions folder. The goal of rise functions is to make building AWS Lambda functions as simple and straight forward as possible.
 
@@ -28,27 +28,26 @@ A project as the following structure:
 rise.mjs
 ```
 
-If your function requires multiple files, or node_modules, functions can also be defined as folders. When they are in a folder, the handler and the config are in seperate files.
+If your function requires multiple files, or node_modules, functions can also be defined inside folders.
 
 ```bash
 /functions
     /myFunctionA
-        config.mjs
+        util.mjs
         index.mjs
     /myFunctionB
         /node_modules
-        config.mjs
+        util.mjs
         index.mjs
 rise.mjs
 ```
 
 ## What is the rise.mjs file for?
 
-The `rise.mjs` file is for configuring your project. In order to treat this as a rise functions project, type must be set to `functions` in this config. Here is an example:
+The `rise.mjs` file is for configuring your project. Here is an example:
 
 ```js
-module.exports = {
-    type: 'functions',
+export default {
     name: 'nameOfMyProject'
 }
 ```
@@ -64,10 +63,5 @@ The only required parameter is the name. This will be used to name:
 You can set the region and stage of your deployment like so:
 
 ```bash
-focus deploy --stage=qa --region=us-east-2
+rise-functions deploy --stage=qa --region=us-east-2
 ```
-
-## More Details
-
--   [Functions](./docs/functions.md)
--   [Keywords](./docs/keywords.md)
