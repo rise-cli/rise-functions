@@ -371,8 +371,7 @@
 <pre class="hljs language-js"><code class="hljs language-js">const stage = &#39;{@stage}&#39;
 </code></pre>
 <p>An example of when you might use stage is to pass this as an env variable into your Lambda function:</p>
-<pre class="hljs language-js"><code class="hljs language-js">// config.mjs
-export const config = {
+<pre class="hljs language-js"><code class="hljs language-js">export const config = {
     env: {
         STAGE: &#39;{@stage}&#39;,
         SOME_ENDPOINT: &#39;https://myendpoint-{@stage}.com&#39;
@@ -384,8 +383,7 @@ export const config = {
 <pre class="hljs language-js"><code class="hljs language-js">const region = &#39;{@region}&#39;
 </code></pre>
 <p>An example of when you might use region is to build up an arn value:</p>
-<pre class="hljs language-js"><code class="hljs language-js">// config.mjs
-export const config = {
+<pre class="hljs language-js"><code class="hljs language-js">export const config = {
     env: {
         TOPIC: &#39;arn:aws:sns:{@region}:12341234:ChatOpsTopic&#39;
     }
@@ -396,8 +394,7 @@ export const config = {
 <pre class="hljs language-js"><code class="hljs language-js">const accountId = &#39;{@accountId}&#39;
 </code></pre>
 <p>An example of when you might use accountId is to build up an arn value:</p>
-<pre class="hljs language-js"><code class="hljs language-js">// config.mjs
-export const config = {
+<pre class="hljs language-js"><code class="hljs language-js">export const config = {
     permissions: [
         {
             Effect: &#39;Allow&#39;,
@@ -425,8 +422,7 @@ Outputs:
 <pre class="hljs language-js"><code class="hljs language-js">const arn = &#39;{@output.stackName.NotesArn}&#39;
 </code></pre>
 <p>A common scenario for using outputs would be to define iam permissions for a lambda function, Example:</p>
-<pre class="hljs language-js"><code class="hljs language-js">// config.mjs
-export const config = {
+<pre class="hljs language-js"><code class="hljs language-js">export const config = {
     permissions: [
         {
             Effect: &#39;Allow&#39;,
@@ -446,8 +442,7 @@ for senstive secrets and keys, and parameter store for values you are fine being
 <pre class="hljs language-js"><code class="hljs language-js">const endpoint = &#39;{@ssm.external_service_endpoint}&#39;
 </code></pre>
 <p>An example of when you might use ssm is to pass this as an env variable into our Lambda function:</p>
-<pre class="hljs language-js"><code class="hljs language-js">// config.mjs
-export const config = {
+<pre class="hljs language-js"><code class="hljs language-js">export const config = {
     env: {
         EXTERNAL_SERVICE_ENDPOINT: &#39;{@ssm.my_external_service_endpoint}&#39;
     }

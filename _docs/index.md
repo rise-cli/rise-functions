@@ -46,11 +46,10 @@ rise.mjs
 
 ## What is the rise.mjs file for?
 
-The `rise.mjs` file is for configuring your project. In order to treat this as a rise functions project, type must be set to `functions` in this config. Here is an example:
+The `rise.mjs` file is for configuring your project. Here is an example:
 
 ```js
-module.exports = {
-    type: 'functions',
+export default {
     name: 'nameOfMyProject'
 }
 ```
@@ -66,5 +65,5 @@ The only required parameter is the name. This will be used to name:
 You can set the region and stage of your deployment like so:
 
 ```bash
-focus deploy --stage=qa --region=us-east-2
+rise-functions deploy --stage=qa --region=us-east-2
 ```

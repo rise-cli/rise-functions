@@ -386,9 +386,8 @@ rise.mjs
 rise.mjs
 </code></pre>
 <h2 id="what-is-the-risemjs-file-for">What is the rise.mjs file for?</h2>
-<p>The <code>rise.mjs</code> file is for configuring your project. In order to treat this as a rise functions project, type must be set to <code>functions</code> in this config. Here is an example:</p>
-<pre class="hljs language-js"><code class="hljs language-js">module.exports = {
-    type: &#39;functions&#39;,
+<p>The <code>rise.mjs</code> file is for configuring your project. Here is an example:</p>
+<pre class="hljs language-js"><code class="hljs language-js">export default {
     name: &#39;nameOfMyProject&#39;
 }
 </code></pre>
@@ -400,7 +399,7 @@ rise.mjs
 </ul>
 <h2 id="what-cli-flags-are-available">What CLI flags are available?</h2>
 <p>You can set the region and stage of your deployment like so:</p>
-<pre class="hljs language-bash"><code class="hljs language-bash">focus deploy --stage=qa --region=us-east-2
+<pre class="hljs language-bash"><code class="hljs language-bash">rise-functions deploy --stage=qa --region=us-east-2
 </code></pre>
 
     </div>

@@ -60,7 +60,7 @@ The config object is how you configure your Lambda function.
 
 ### Url
 
-If `url` is set to true, your lambda function will deploy with a public url. The format of the string is `{METHOD} {PATH`
+This will deploy an ApiGateway Http api endpoint and attach it to your lambda function. The format of the string is `{METHOD} {PATH`
 
 ```js
 export const config = {
@@ -84,7 +84,7 @@ export const config = {
 
 ### Permissions
 
-If `permissions` is set, you can add an array of IAM permissions to your Lambd function:
+If `permissions` is set, you can add an array of IAM permissions to your lambda function:
 
 ```js
 export const config = {
