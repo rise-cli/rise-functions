@@ -15,7 +15,8 @@ async function getLocalAppConfig() {
             appName: config.name,
             region: config.region || 'us-east-1',
             stage: config.stage || 'dev',
-            dashboard: config.dashboard || false
+            dashboard: config.dashboard || false,
+            table: config.table || false
         }
     } catch (e) {
         throw new Error('Must have a rise.mjs file')
@@ -41,10 +42,18 @@ export async function getAppConfig() {
     const accountId = await getAccountId()
     return {
         appName: config.appName,
+        domain: config.domain
+            ? {
+                  name: config.domain.name,
+                  path: config.domain.path,
+                  stage: config.domain.stage
+              }
+            : false,
         bucketName: bucketName,
         region: config.region || 'us-east-1',
         stage: config.stage || 'dev',
         accountId,
-        dashboard: config.dashboard
+        dashboard: config.dashboard,
+        table: config.table
     }
 }

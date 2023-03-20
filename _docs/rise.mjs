@@ -14,6 +14,7 @@ export default {
     sidebar: {
         Intro: 'index.md',
         Functions: 'functions.md',
-        Keywords: 'keywords.md'
+        Keywords: 'keywords.md',
+        Experimental: 'experimental.md'
     }
 }

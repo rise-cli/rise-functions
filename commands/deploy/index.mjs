@@ -14,9 +14,10 @@ export async function deploy(flags) {
         await deployBackend(config)
     } catch (e) {
         if (e instanceof Error) {
-            cli.clear()
-            cli.printErrorMessage('Rise Functions Error')
-            cli.printInfoMessage(e.message)
+            console.log(e)
+            // cli.clear()
+            // cli.printErrorMessage('Rise Functions Error')
+            // cli.printInfoMessage(e.message)
         } else {
             throw new Error('Unknown Error')
         }

@@ -352,6 +352,11 @@
         <span>Keywords</span>
     </a>
 </li>
+<li class='false'>
+    <a href='experimental.html'>
+        <span>Experimental</span>
+    </a>
+</li>
 
         </ul>
     </div>
@@ -401,7 +406,7 @@ export const handler = async (event, rise, context) =&gt; {
 <h1 id="configuring-your-lambda-function">Configuring your Lambda Function</h1>
 <p>The config object is how you configure your Lambda function.</p>
 <h3 id="url">Url</h3>
-<p>This will deploy an ApiGateway Http api endpoint and attach it to your lambda function. The format of the string is <code>{METHOD} {PATH</code></p>
+<p>This will deploy an ApiGateway Http api endpoint and attach it to your lambda function. The format of the string is <code>{METHOD} {PATH}</code></p>
 <pre class="hljs language-js"><code class="hljs language-js">export const config = {
     url: &#39;GET /notes&#39;
 }

@@ -64,7 +64,8 @@ export async function deployBackend(config) {
             stage: config.app.stage,
             config: config.functions,
             zipConfig: config.zipConfig,
-            additionalResources: config.additionalResources
+            additionalResources: config.additionalResources,
+            domain: config.app.domain
         })
 
         /**

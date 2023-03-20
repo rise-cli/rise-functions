@@ -1,4 +1,4 @@
-export const code = `
+export const code = (table) => `
 import { handler as code } from './_index.mjs'
 import AWS from '/var/runtime/node_modules/aws-sdk/lib/aws.js'
 const region = process.env.AWS_REGION
@@ -32,7 +32,7 @@ function formatKeys(oldInput) {
 }
 
 /** Get an item from a DynamoDB table */
-export async function dbget(input, table = process.env.TABLE) {
+export async function dbget(input, table = "${table}") {
     if (!input.sk) {
         throw new Error('Input must have sk defined')
     }
@@ -84,7 +84,7 @@ export async function dbget(input, table = process.env.TABLE) {
 }
 
 /** Query items in a DynamoDB table with begins with  */
-export async function dblist(input, table = process.env.TABLE) {
+export async function dblist(input, table = "${table}") {
     if (!input.sk) {
         throw new Error('Input must have sk defined')
     }
@@ -144,7 +144,7 @@ export async function dblist(input, table = process.env.TABLE) {
  * Put an item into a DynamoDB table.
  * This will error if item already exists in table
  */
-export async function dbcreate(input, table = process.env.TABLE) {
+export async function dbcreate(input, table = "${table}") {
     if (!input.pk && !input.pk2 && !input.pk3) {
         throw new Error('create must have either pk, pk2, or pk3 defined')
     }
@@ -184,7 +184,7 @@ export async function dbcreate(input, table = process.env.TABLE) {
  * Put an item into a DynamoDB table.
  * This will overwrite if item already exists in table
  */
-export async function dbset(input, table = process.env.TABLE) {
+export async function dbset(input, table = "${table}") {
     if (!input.pk && !input.pk2 && !input.pk3) {
         throw new Error('create must have either pk, pk2, or pk3 defined')
     }
@@ -205,7 +205,7 @@ export async function dbset(input, table = process.env.TABLE) {
 }
 
 /** Remove an item from a DynamoDB Tables */
-export async function dbremove(input, table = process.env.TABLE) {
+export async function dbremove(input, table = "${table}") {
     await db
         .delete({
             TableName: table,

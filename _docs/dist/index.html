@@ -352,6 +352,11 @@
         <span>Keywords</span>
     </a>
 </li>
+<li class='false'>
+    <a href='experimental.html'>
+        <span>Experimental</span>
+    </a>
+</li>
 
         </ul>
     </div>
@@ -359,6 +364,13 @@
         <h1 id="rise-functions">Rise Functions</h1>
 <p><a href="https://github.com/rise-cli/rise-functions">Github</a></p>
 <p>Rise Functions is a CLI which takes a <code>rise.mjs</code> file, and deploys AWS Lambda functions into your AWS account. All lambda functions are located in a /functions folder. The goal of rise functions is to make building AWS Lambda functions as simple and straight forward as possible.</p>
+<h2 id="why-use-this-over-other-frameworks">Why use this over other frameworks?</h2>
+<ul>
+<li>fast (currently deploys under 3 seconds)</li>
+<li>minimal and simple</li>
+<li>no YAML, just JS code</li>
+<li>simple config with keywords to access ssm parameters, cloudformation outputs from other stacks</li>
+</ul>
 <h2 id="install">Install</h2>
 <pre class="hljs language-bash"><code class="hljs language-bash">npm i -g rise-functions
 </code></pre>
@@ -374,7 +386,7 @@
     myFunctionC.mjs
 rise.mjs
 </code></pre>
-<p>If your function requires multiple files, or node_modules, functions can also be defined inside folders.</p>
+<p>If your function requires multiple files or node_modules, functions can be defined inside a folder.</p>
 <pre class="hljs language-bash"><code class="hljs language-bash">/functions
     /myFunctionA
         util.mjs

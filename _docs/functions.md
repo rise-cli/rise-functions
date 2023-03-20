@@ -60,7 +60,7 @@ The config object is how you configure your Lambda function.
 
 ### Url
 
-This will deploy an ApiGateway Http api endpoint and attach it to your lambda function. The format of the string is `{METHOD} {PATH`
+This will deploy an ApiGateway Http api endpoint and attach it to your lambda function. The format of the string is `{METHOD} {PATH}`
 
 ```js
 export const config = {

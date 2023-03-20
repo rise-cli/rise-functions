@@ -48,7 +48,13 @@ The `rise.mjs` file is for configuring your project. Here is an example:
 
 ```js
 export default {
-    name: 'nameOfMyProject'
+    name: 'nameOfMyProject',
+    // optional
+    domain: {
+        name: 'mydomain.com',
+        path: '/serviceA',
+        stage: 'dev'
+    }
 }
 ```
 

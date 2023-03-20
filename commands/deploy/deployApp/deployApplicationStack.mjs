@@ -21,7 +21,8 @@ export async function deployApplication({
     stage,
     config,
     zipConfig,
-    additionalResources
+    additionalResources,
+    domain
 }) {
     /**
      * Helpers
@@ -155,10 +156,14 @@ export async function deployApplication({
     })
 
     if (urlConfigs.length > 0) {
-        const httpApiConfig = {
+        let httpApiConfig = {
             name: appName,
             stage
         }
+
+        // if (config.app.domain) {
+        //     httpApiConfig.domain = config.app.domain
+        // }
 
         const httpApi = aws.apigateway.makeHttpApi(httpApiConfig)
         const httpRoutes = urlConfigs.reduce(

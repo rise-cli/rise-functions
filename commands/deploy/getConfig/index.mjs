@@ -7,9 +7,13 @@ export const getConfig = async (flags) => {
 
     let appConfig = await getAppConfig()
     appConfig.stage = flags.stage
+    if (appConfig.domain) {
+        appConfig.domain.stage = flags.stage
+    }
     appConfig.region = flags.region
 
     const { functionConfigs, deployInfra } = await getFunctionConfig(
+        appConfig.appName,
         appConfig.region,
         appConfig.stage
     )
@@ -17,6 +21,63 @@ export const getConfig = async (flags) => {
     let additionalResources = {
         Resources: {},
         Outputs: {}
+    }
+
+    if (appConfig.table) { 
+        const t = appConfig.table
+        additionalResources.Resources = {
+            ...additionalResources.Resources,
+            Table: {  
+                "Type": "AWS::DynamoDB::Table",
+                "Properties": {
+                    "TableName": appConfig.appName + 'table',
+                    "AttributeDefinitions": [
+                        {
+                            "AttributeName": t.pk.split(' ')[0],
+                            "AttributeType": t.pk.split(' ')[1] === 'string' ? "S" : 'N'
+                        },
+                        {
+                            "AttributeName": t.sk.split(' ')[0],
+                            "AttributeType": t.pk.split(' ')[1] === 'string' ? "S" : 'N'
+                        }
+                    ],
+                    "KeySchema": [
+                        {
+                            "AttributeName": t.pk.split(' ')[0],
+                            "KeyType": "HASH"
+                        },
+                        {
+                            "AttributeName": t.sk.split(' ')[0],
+                            "KeyType": "RANGE"
+                        }
+                    ],
+                    "BillingMode": "PAY_PER_REQUEST"
+                }
+            }
+        }
+
+        const permission = {
+            Effect: 'Allow',
+            Action: [
+                'dynamodb:Query',
+                'dynamodb:GetItem',
+                'dynamodb:PutItem',
+                'dynamodb:DeleteItem'
+            ],
+            Resource: {
+                "Fn::GetAtt": [
+                    "Table",
+                    'Arn'
+                ]
+            }
+        }
+
+        Object.keys(functionConfigs).forEach((k) => { 
+            functionConfigs[k].permissions = [
+                ...functionConfigs[k].permissions,
+                permission
+            ]
+        })
     }
 
     Object.keys(functionConfigs).forEach((k) => {

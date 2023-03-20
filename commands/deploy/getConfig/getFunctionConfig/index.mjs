@@ -52,7 +52,7 @@ async function getFunctionConfigFile(configPath) {
     }
 }
 
-export async function getFunctionConfig(region, stage) {
+export async function getFunctionConfig(appName, region, stage) {
     const keywords = {
         '@region': region,
         '@stage': stage
@@ -88,7 +88,7 @@ export async function getFunctionConfig(region, stage) {
         // write index.js file
         filesystem.writeFile({
             path: `/.rise/src/lambdas/${x}/index.mjs`,
-            content: code,
+            content: code(appName + 'table'),
             projectRoot: process.cwd()
         })
 
@@ -124,7 +124,7 @@ export async function getFunctionConfig(region, stage) {
         // write index.js file
         filesystem.writeFile({
             path: `/.rise/src/lambdas/${x}/index.mjs`,
-            content: code,
+            content: code(appName + 'table'),
             projectRoot: process.cwd()
         })
 
