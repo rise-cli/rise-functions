@@ -66,8 +66,8 @@ The only required parameter is the name. This will be used to name:
 
 ## What CLI flags are available?
 
-You can set the region and stage of your deployment like so:
+You can set the region of your deployment like so:
 
 ```bash
-rise-functions deploy --stage=qa --region=us-east-2
+rise-functions deploy --region=us-east-2
 ```

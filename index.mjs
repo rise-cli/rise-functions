@@ -9,10 +9,6 @@ cli.addCommand({
     description: 'Deploy functions',
     flags: [
         {
-            flag: '--stage',
-            default: 'dev'
-        },
-        {
             flag: '--region',
             default: 'us-east-1'
         },

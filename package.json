@@ -1,6 +1,6 @@
 {
     "name": "rise-functions",
-    "version": "0.0.29",
+    "version": "0.0.32",
     "description": "",
     "main": "index.mjs",
     "bin": {
@@ -15,7 +15,7 @@
     "license": "ISC",
     "dependencies": {
         "json5": "^2.2.3",
-        "rise-aws-foundation": "^0.0.12",
+        "rise-aws-foundation": "^0.0.14",
         "rise-cli-foundation": "^0.0.14",
         "rise-deploycode": "^0.0.1",
         "rise-deployinfra": "^0.0.6",

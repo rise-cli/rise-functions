@@ -5,11 +5,11 @@
 Rise Functions is a CLI which takes a `rise.mjs` file, and deploys AWS Lambda functions into your AWS account. All lambda functions are located in a /functions folder. The goal of rise functions is to make building AWS Lambda functions as simple and straight forward as possible.
 
 ## Why use this over other frameworks?
-- fast (currently deploys under 3 seconds)
-- minimal and simple
-- no YAML, just JS code
-- simple config with keywords to access ssm parameters, cloudformation outputs from other stacks
 
+-   fast (currently deploys under 3 seconds)
+-   minimal and simple
+-   no YAML, just JS code
+-   simple config with keywords to access ssm parameters, cloudformation outputs from other stacks
 
 ## Install
 
@@ -69,8 +69,8 @@ The only required parameter is the name. This will be used to name:
 
 ## What CLI flags are available?
 
-You can set the region and stage of your deployment like so:
+You can set the region of your deployment like so:
 
 ```bash
-rise-functions deploy --stage=qa --region=us-east-2
+rise-functions deploy --region=us-east-2
 ```

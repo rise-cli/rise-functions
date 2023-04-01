@@ -25,7 +25,7 @@ export async function deployBackend(config) {
     if (!config.app.bucketName) {
         const bucketName = await deploycode.deployCodeBucket({
             name: deployName,
-            stage: config.app.stage,
+            stage: '', //config.app.stage,
             region: config.app.region
         })
 
@@ -61,7 +61,7 @@ export async function deployBackend(config) {
             region: config.app.region,
             appName: config.app.appName,
             bucketArn: 'arn:aws:s3:::' + config.app.bucketName,
-            stage: config.app.stage,
+            stage: '', //config.app.stage,
             config: config.functions,
             zipConfig: config.zipConfig,
             additionalResources: config.additionalResources,
@@ -76,7 +76,7 @@ export async function deployBackend(config) {
         await deploycode.updateLambdaCode({
             appName: config.app.appName,
             bucket: config.app.bucketName,
-            stage: config.app.stage,
+            stage: '', //config.app.stage,
             zipConfig: config.zipConfig,
             region: config.app.region
         })
@@ -116,7 +116,7 @@ export async function deployBackend(config) {
         await deploycode.updateLambdaCode({
             appName: config.app.appName,
             bucket: config.app.bucketName,
-            stage: config.app.stage,
+            stage: '', //,config.app.stage,
             zipConfig: config.zipConfig,
             region: config.app.region
         })
@@ -132,7 +132,6 @@ export async function removeBackend(config) {
     /**
      * Get project  info locally
      */
-    const stage = config.stage
     const region = config.region
     let projectData = {
         name: config.name,
@@ -144,7 +143,7 @@ export async function removeBackend(config) {
      */
     const deployName = config.deployName
     if (!projectData.bucketName) {
-        const stackName = deployName + stage + '-bucket'
+        const stackName = deployName + '-bucket'
         const { MainBucket } = await aws.cloudformation.getOutputs({
             stack: stackName,
             outputs: ['MainBucket']
@@ -153,7 +152,7 @@ export async function removeBackend(config) {
         projectData.bucketName = MainBucket
     }
 
-    const stackName = deployName + stage + '-bucket'
+    const stackName = deployName + '-bucket'
 
     /**
      * Empty bucket

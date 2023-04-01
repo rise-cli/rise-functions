@@ -7,7 +7,6 @@ export async function removeBackend(config) {
     /**
      * Get project  info locally
      */
-    const stage = config.stage
     const region = config.region
     let projectData = {
         name: config.name,
@@ -19,7 +18,7 @@ export async function removeBackend(config) {
      */
     const deployName = config.deployName
     if (!projectData.bucketName) {
-        const stackName = deployName + stage + '-bucket'
+        const stackName = deployName + '-bucket'
         const { MainBucket } = await aws.cloudformation.getOutputs({
             stack: stackName,
             outputs: ['MainBucket']
@@ -28,7 +27,7 @@ export async function removeBackend(config) {
         projectData.bucketName = MainBucket
     }
 
-    const stackName = deployName + stage + '-bucket'
+    const stackName = deployName + '-bucket'
 
     /**
      * Empty bucket

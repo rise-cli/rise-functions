@@ -239,7 +239,7 @@ export async function deployApplication({
     const theResult = {}
     if (urlConfigs.length > 0) {
         theResult.endpoints = urlConfigs.map((x) => {
-            const n = x.name.slice(6).slice(0, -Math.abs(stage.length))
+            const n = x.name.slice(6) //.slice(0, -Math.abs(stage.length))
             return `${n}: ${result.outputs['ApiUrl']}/${x.path}`
         })
     }
